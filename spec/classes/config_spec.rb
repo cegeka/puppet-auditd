@@ -21,9 +21,7 @@ describe 'auditd::config' do
     context 'without params' do
       let (:params) { { } }
 
-      it { should contain_class('auditd::config').with(
-
-      )}
+      it { should include_class('concat::setup') }
 
       it { should contain_file('auditd/config').with(
         :ensure  => 'file',

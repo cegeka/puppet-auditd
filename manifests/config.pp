@@ -16,6 +16,8 @@ class auditd::config (
     }
   }
 
+  include concat::setup
+
   file { 'auditd/config':
     ensure  => 'file',
     owner   => 'root',
@@ -26,10 +28,11 @@ class auditd::config (
   }
 
   concat { 'auditd/rules':
-    path   => '/etc/audit/audit.rules',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0640'
+    path    => '/etc/audit/audit.rules',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    require => 'Class[concat::setup]'
   }
 
   concat::fragment { 'auditd/rules/header':
