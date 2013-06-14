@@ -10,7 +10,7 @@ define auditd::rule (
           concat::fragment { "auditd/rules/${title}":
             target  => 'auditd/rules',
             order   => $order,
-            content => $expression
+            content => "${expression}\n"
           }
         }
         else {
