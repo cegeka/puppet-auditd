@@ -55,7 +55,7 @@ describe 'auditd::rule' do
         it { should contain_concat__fragment('auditd/rules/execve').with(
           :target  => 'auditd/rules',
           :order   => '10',
-          :content => '-a entry,always -F arch=b64 -S execve -F auid>=500'
+          :content => /^-a entry,always -F arch=b64 -S execve -F auid>=500\n$/
         )}
       end
 
@@ -68,7 +68,7 @@ describe 'auditd::rule' do
         it { should contain_concat__fragment('auditd/rules/execve').with(
           :target  => 'auditd/rules',
           :order   => '20',
-          :content => '-a always,exit -F arch=b64 -S open -k access'
+          :content => /^-a always,exit -F arch=b64 -S open -k access\n$/
         )}
       end
     end
