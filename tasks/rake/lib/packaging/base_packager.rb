@@ -16,8 +16,8 @@ class BasePackager
     @basedirectory = ENV['WORKSPACE']
 		@semver_version = version_helper.semver_version
 		@release = "1"
-    @package_type = package_type 
-    
+    @package_type = package_type
+
     case package_type
     when "rpm"
       @first_delimiter, @second_delimiter, @architecture = "-", ".", "noarch"
@@ -37,11 +37,17 @@ class BasePackager
       ENV['GIT_COMMIT'] = "54b0c58c7ce9f2a8b551351102ee0938"[0,10]
     end
   end
- 
+
   def build(module_name)
 		ENV["#{ENV['JOB_NAME']}_semver_version"] = @semver_version
     package_name = "cegeka-puppet-#{module_name}"
     destination_file = "#{package_name}#{@first_delimiter}#{@semver_version}-#{@release}#{@second_delimiter}#{@architecture}.#{@package_type}"
+    case package_type
+    when "rpm"
+      ENV["#{ENV['JOB_NAME']}_rpm_name"] = destination_file
+    when "deb"
+      ENV["#{ENV['JOB_NAME']}_deb_name"] = destination_file
+    end
     destination_folder = "#{@basedirectory}/#{module_name}/#{RESULTS}/dist"
     url = "https://github.com/cegeka/puppet-#{module_name}"
     description = "Puppet module: #{module_name} by Cegeka\nModule #{module_name} description goes here."
@@ -50,7 +56,7 @@ class BasePackager
 		exclude_arguments = ["-x", ".git", "-x", ".gitignore", "-x", "tasks", "-x", "Rakefile", "-x", "target", "-x", ".project", "-x", ".puppet-lintrc"]
     var_arguments = ["-n", package_name, "-v", @semver_version, "--iteration", @release, "--url", url, "--description", description, "-C", @basedirectory, module_name]
     arguments = static_arguments + exclude_arguments + var_arguments
-    
+
     tmpdir = Dir.mktmpdir
     Dir.chdir tmpdir
     FileUtils.mkpath destination_folder
