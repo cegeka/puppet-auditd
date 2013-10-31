@@ -42,7 +42,7 @@ class BasePackager
 		ENV["#{ENV['JOB_NAME']}_semver_version"] = @semver_version
     package_name = "cegeka-puppet-#{module_name}"
     destination_file = "#{package_name}#{@first_delimiter}#{@semver_version}-#{@release}#{@second_delimiter}#{@architecture}.#{@package_type}"
-    case package_type
+    case @package_type
     when "rpm"
       ENV["#{ENV['JOB_NAME']}_rpm_name"] = destination_file
     when "deb"
