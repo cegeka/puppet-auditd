@@ -37,8 +37,7 @@ namespace "jenkins" do
     module_name = ENV['JOB_NAME']
     git_commit = ENV['GIT_COMMIT']
 		semver_version = VersionHelper.new.semver_version
-    rpm_name = ENV["#{ENV['JOB_NAME']}_rpm_name"]
-    deb_name = ENV["#{ENV['JOB_NAME']}_deb_name"]
+    rpm_name = "cegeka-#{module_name}-#{semver_version}-1.noarch.rpm"
 
     if !git_commit.nil? and !git_commit.empty?
       puts "Saving #{module_name}.yaml file"
@@ -48,7 +47,6 @@ namespace "jenkins" do
         file.puts "git_commit: #{git_commit}"
 				file.puts "semver_version: #{semver_version}"
 				file.puts "rpm_name: #{rpm_name}"
-				file.puts "deb_name: #{deb_name}"
       }
     end
   end
