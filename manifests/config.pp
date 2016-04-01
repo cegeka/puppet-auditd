@@ -16,8 +16,6 @@ class auditd::config (
     }
   }
 
-  include concat::setup
-
   file { 'auditd/config':
     ensure  => 'file',
     owner   => 'root',
