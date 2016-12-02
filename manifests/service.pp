@@ -6,6 +6,7 @@ class auditd::service (
   service { 'auditd':
     ensure    => $ensure,
     hasstatus => true,
-    enable    => $enable
+    enable    => $enable,
+    provider  => 'redhat' #this always needs to be run via the redhat 'service' commands, even on rhel7
   }
 }
