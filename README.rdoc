@@ -1,5 +1,5 @@
 = puppet-auditd module
 
-{<img src='https://codex.cegeka.be/jenkins/job/puppet-auditd/badge/icon' />}[https://codex.cegeka.be/jenkins/job/puppet-auditd/]
+{<img src='https://jenkins-iac.cegeka.be/job/puppet-auditd/badge/icon' />}[https://jenkins-iac.cegeka.be/job/puppet-auditd/]
 
 This is the auditd module.
