@@ -36,7 +36,7 @@ class auditd::config (
         }
       }
     }
-    
+
     default: {
       fail("Class['auditd::config']: osfamily ${::osfamily} is not supported")
     }
@@ -46,8 +46,7 @@ class auditd::config (
     path    => $path,
     owner   => 'root',
     group   => 'root',
-    mode    => '0640',
-    require => 'Class[concat::setup]'
+    mode    => '0640'
   }
 
   concat::fragment { 'auditd/rules/header':
