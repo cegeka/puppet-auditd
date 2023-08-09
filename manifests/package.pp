@@ -4,7 +4,7 @@ class auditd::package (
 {
   case $version {
     'present', 'latest', 'absent': {
-      package { 'audit':
+      package { ['audit','audispd-plugins']:
         ensure => $version
       }
     }

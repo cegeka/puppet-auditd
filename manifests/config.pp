@@ -28,11 +28,8 @@ class auditd::config (
   case $::osfamily {
     'RedHat': {
       case $::operatingsystemrelease {
-        /^7./: {
-          $path = '/etc/audit/rules.d/puppet.rules'
-        }
         default: {
-          $path = '/etc/audit/audit.rules'
+          $path = '/etc/audit/rules.d/puppet.rules'
         }
       }
     }
@@ -55,12 +52,22 @@ class auditd::config (
     content => template('auditd/etc/audit/audit.rules.erb')
   }
 
+  case $::os[release][major] {
+    '7': {
+      $audisp_base = '/etc/audisp'
+    }
+    default: {
+      $audisp_base = '/etc/audit'
+    }
+  }
+
+  $audisp =
   file { 'audispd/config':
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    path    => '/etc/audisp/audispd.conf',
+    path    => "${audisp_base}/audispd.conf",
     content => template('auditd/etc/audisp/audispd.conf.erb')
   }
 
@@ -69,7 +76,7 @@ class auditd::config (
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    path    => '/etc/audisp/plugins.d/af_unix.conf',
+    path    => "${audisp_base}/plugins.d/af_unix.conf",
     content => template('auditd/etc/audisp/plugins.d/af_unix.conf.erb')
   }
 
@@ -78,7 +85,7 @@ class auditd::config (
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    path    => '/etc/audisp/plugins.d/syslog.conf',
+    path    => "${audisp_base}/plugins.d/syslog.conf",
     content => template('auditd/etc/audisp/plugins.d/syslog.conf.erb')
   }
 }
