@@ -25,25 +25,21 @@ class auditd::config (
     content => template('auditd/etc/audit/auditd.conf.erb')
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      case $::operatingsystemrelease {
-        default: {
-          $path = '/etc/audit/rules.d/puppet.rules'
-        }
-      }
+      $path = '/etc/audit/rules.d/puppet.rules'
     }
 
     default: {
-      fail("Class['auditd::config']: osfamily ${::osfamily} is not supported")
+      fail("Class['auditd::config']: osfamily ${facts['os']['family']} is not supported")
     }
   }
 
   concat { 'auditd/rules':
-    path    => $path,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0640'
+    path  => $path,
+    owner => 'root',
+    group => 'root',
+    mode  => '0640'
   }
 
   concat::fragment { 'auditd/rules/header':

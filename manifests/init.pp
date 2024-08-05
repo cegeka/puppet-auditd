@@ -14,7 +14,7 @@ class auditd (
   $output = 'file'
 )
 {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       class { 'auditd::package': }
       class { 'auditd::config': output => $output }
@@ -23,7 +23,7 @@ class auditd (
       Class['auditd::package'] -> Class['auditd::config'] ~> Class['auditd::service']
     }
     default: {
-      fail("Class['auditd']: osfamily ${::osfamily} is not supported")
+      fail("Class['auditd']: osfamily ${facts['os']['family']} is not supported")
     }
   }
 }
