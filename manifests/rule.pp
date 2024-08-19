@@ -3,7 +3,7 @@ define auditd::rule (
   $order      = 10
 )
 {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       if $expression {
         if ($order > 0) {
@@ -22,7 +22,7 @@ define auditd::rule (
       }
     }
     default: {
-      fail("Auditd::Rule[${title}]: osfamily ${::osfamily} is not supported")
+      fail("Auditd::Rule[${title}]: osfamily ${facts['os']['family']} is not supported")
     }
   }
 }
