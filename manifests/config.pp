@@ -48,7 +48,7 @@ class auditd::config (
     content => template('auditd/etc/audit/audit.rules.erb')
   }
 
-  case $::os[release][major] {
+  case $facts['os']['release']['major'] {
     '7': {
       $audisp_base = '/etc/audisp'
     }
