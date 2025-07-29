@@ -1,3 +1,5 @@
+# Manage settings in /etc/audit/auditd.conf
+#
 define auditd::settings (
   $max_log_file = 10,
 )

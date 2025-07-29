@@ -1,3 +1,5 @@
+# Manage auditd config files
+#
 class auditd::config (
   $output = 'file'
 )
