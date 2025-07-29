@@ -16,15 +16,6 @@ class auditd::config (
     }
   }
 
-  file { 'auditd/config':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0640',
-    path    => '/etc/audit/auditd.conf',
-    content => template('auditd/etc/audit/auditd.conf.erb')
-  }
-
   case $facts['os']['family'] {
     'RedHat': {
       $path = '/etc/audit/rules.d/puppet.rules'

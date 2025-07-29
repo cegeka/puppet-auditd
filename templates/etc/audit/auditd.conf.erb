@@ -13,7 +13,7 @@ disp_qos = lossy
 dispatcher = /sbin/audispd
 name_format = none
 ##name = mydomain
-max_log_file = 10
+max_log_file = <%= @max_log_file %>
 max_log_file_action = rotate
 space_left = 75
 space_left_action = syslog
