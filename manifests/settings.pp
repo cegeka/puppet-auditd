@@ -2,6 +2,8 @@
 #
 define auditd::settings (
   $max_log_file = 10,
+  $flush        = 'incremental',
+  $freq         = 20,
 )
 {
 

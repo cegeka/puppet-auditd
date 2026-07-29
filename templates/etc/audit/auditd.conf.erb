@@ -6,8 +6,8 @@ log_file = /var/log/audit/audit.log
 log_format = RAW
 log_group = root
 priority_boost = 4
-flush = incremental
-freq = 20
+flush = <%= @flush %>
+freq = <%= @freq %>
 num_logs = 7
 disp_qos = lossy
 dispatcher = /sbin/audispd
